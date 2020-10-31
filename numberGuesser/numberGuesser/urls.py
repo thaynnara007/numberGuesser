@@ -24,6 +24,7 @@ router = routers.DefaultRouter()
 router.register(r'rank', RankViewSet, basename='Rank')
 
 urlpatterns = [
+    path('', include('Primes.urls')),
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
