@@ -1,5 +1,6 @@
-from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
+from django.core.paginator import Paginator
 from ..models import Rank
 from .serializer import RankSerializer
 
@@ -7,9 +8,6 @@ from .serializer import RankSerializer
 class RankViewSet(ModelViewSet):
 
     serializer_class = RankSerializer
-    filter_backends = (OrderingFilter, SearchFilter)
-    search_fields = ('name',)
-    ordering_fields = ('time',)
 
     def get_queryset(self):
         queryset = Rank.objects.all()
@@ -19,7 +17,18 @@ class RankViewSet(ModelViewSet):
             return queryset.filter(name=name)
 
     def list(self, request, *args, **kwargs):
-        return super(RankViewSet, self).list(request, *args, **kwargs)
+        page_size = request.query_params.get('page_size', None)
+        ranks = Rank.objects.all().order_by('-time')
+
+        if page_size is not None:
+            paginator = Paginator(ranks, page_size)
+            all_ranks = RankSerializer(paginator.get_page(1), many=True)
+
+            return Response({"all_ranks": all_ranks.data})
+        else:
+            all_ranks = RankSerializer(ranks, many=True)
+
+            return Response({"all_ranks": all_ranks.data})
 
     def retrieve(self, request, *args, **kwargs):
         return super(RankViewSet, self).retrieve(request, *args, **kwargs)

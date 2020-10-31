@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from .Prime import Prime
 
 
@@ -29,6 +30,10 @@ class PrimesView(APIView):
             new_primes = Prime(0, primes).filter_type_multi(num)
 
             return Response({"primes": new_primes})
+        else:
+            return Response({
+                'error': 'Please, type a valid kind of filter',
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 
