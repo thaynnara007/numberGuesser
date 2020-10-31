@@ -7,8 +7,14 @@ from .Prime import Prime
 class PrimesView(APIView):
 
     def get(self, _):
-        primes = Prime(8000).crivo()
-        return Response({"primes": primes})
+        prime = Prime(8000)
+        primes = prime.crivo()
+        size = prime.get_size()
+
+        return Response({
+            "size": size,
+            "primes": primes,
+        })
 
     def post(self, request):
         filter_type = request.query_params.get('filter', None)
@@ -19,17 +25,32 @@ class PrimesView(APIView):
             return Response({"primes": primes})
 
         elif filter_type.lower() == 'sum':
-            new_primes = Prime(0, primes).filter_type_sum(num)
+            prime = Prime(0, primes)
+            new_primes = prime.filter_type_sum(num)
+            size = prime.get_size()
 
-            return Response({"primes": new_primes})
+            return Response({
+                "size": size,
+                "primes": new_primes
+            })
         elif filter_type.lower() == 'mod':
-            new_primes = Prime(0, primes).filter_type_mod(7)
+            prime = Prime(0, primes)
+            new_primes = prime.filter_type_mod(7)
+            size = prime.get_size()
 
-            return Response({"primes": new_primes})
+            return Response({
+                "size": size,
+                "primes": new_primes
+            })
         elif filter_type.lower() == 'multi':
-            new_primes = Prime(0, primes).filter_type_multi(num)
+            prime = Prime(0, primes)
+            new_primes = prime.filter_type_multi(num)
+            size = prime.get_size()
 
-            return Response({"primes": new_primes})
+            return Response({
+                "size": size,
+                "primes": new_primes
+            })
         else:
             return Response({
                 'error': 'Please, type a valid kind of filter',
