@@ -10,15 +10,16 @@ This is a game where you should think on a prime number between 1 and 8000 and t
 ```shell
 $ python3 -m venv venv
 ```
-> Let's install the dependencies
-```shell
-$ pip3 install -r requirements.txt
-```
 > Let's activate our virtual environment
 * On Mac/Linux:
 ```shell
 $ . /venv/bin/activate
 ```
+> Let's install the dependencies
+```shell
+$ pip3 install -r requirements.txt
+```
+
 > Let's enter in the directory
 ```shell
 $ cd numberGuesser
