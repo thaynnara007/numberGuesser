@@ -35,7 +35,7 @@ class PrimesView(APIView):
             })
         elif filter_type.lower() == 'mod':
             prime = Prime(0, primes)
-            new_primes = prime.filter_type_mod(7)
+            new_primes = prime.filter_type_mod(num)
             size = prime.get_size()
 
             return Response({

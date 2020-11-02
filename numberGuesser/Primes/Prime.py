@@ -32,11 +32,13 @@ class Prime:
     def filter_type_sum(self, num):
         new_primes = []
         size = 0
+        num = int(num)
 
         for prime in self.primes:
             sum_d = self.sum_digits(prime)
 
             if sum_d == num:
+                print(sum_d)
                 new_primes.append(prime)
                 size += 1
 
@@ -46,9 +48,10 @@ class Prime:
     def filter_type_mod(self, num):
         new_primes = []
         size = 0
+        num = int(num)
 
         for prime in self.primes:
-            if prime % num == 1:
+            if prime % 7 == num:
                 new_primes.append(prime)
                 size += 1
 
@@ -67,6 +70,7 @@ class Prime:
     def filter_type_multi(self, num):
         new_primes = []
         size = 0
+        num = int(num)
 
         for prime in self.primes:
             multi = self.multi_digits(prime)
