@@ -18,7 +18,7 @@ class RankViewSet(ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         page_size = request.query_params.get('page_size', None)
-        ranks = Rank.objects.all().order_by('-time')
+        ranks = Rank.objects.all().order_by('time')
 
         if page_size is not None:
             paginator = Paginator(ranks, page_size)

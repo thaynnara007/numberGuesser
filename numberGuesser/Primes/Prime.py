@@ -38,7 +38,6 @@ class Prime:
             sum_d = self.sum_digits(prime)
 
             if sum_d == num:
-                print(sum_d)
                 new_primes.append(prime)
                 size += 1
 
